@@ -96,7 +96,7 @@ const SalaryCard: React.FC<{f: number}> = ({f}) => {
           {digits.map(([a, b], i) => (
             <React.Fragment key={i}>
               <Reel from={a} to={b} f={f} start={ROLL[0] + i * 3} end={ROLL[1] - (6 - i) * 2} spins={1 + (i % 3)} />
-              {sep.includes(i) ? <span style={{width: 22, marginLeft: -8, textAlign: 'left', display: 'inline-block'}}>,</span> : null}
+              {sep.includes(i) ? <span style={{width: 44, display: 'flex', justifyContent: 'center'}}>,</span> : null}
             </React.Fragment>
           ))}
         </div>
