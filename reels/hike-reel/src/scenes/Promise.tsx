@@ -96,7 +96,7 @@ const SalaryCard: React.FC<{f: number}> = ({f}) => {
           {digits.map(([a, b], i) => (
             <React.Fragment key={i}>
               <Reel from={a} to={b} f={f} start={ROLL[0] + i * 3} end={ROLL[1] - (6 - i) * 2} spins={1 + (i % 3)} />
-              {sep.includes(i) ? <span style={{width: 26, marginLeft: -6, marginRight: -4, textAlign: 'center'}}>,</span> : null}
+              {sep.includes(i) ? <span style={{width: 22, marginLeft: -8, textAlign: 'left', display: 'inline-block'}}>,</span> : null}
             </React.Fragment>
           ))}
         </div>
@@ -110,8 +110,10 @@ export const PromiseScene: React.FC = () => {
   const fly = ease(f, 0, FLY, 0, 1, easeInOut);
   const flyBlur = Math.sin(Math.min(1, f / FLY) * Math.PI) * 7;
   const rise = ease(f, RISE[0], Math.min(RISE[0] + 62, T.melt - T.promise - 4), 0, 1, Easing3);
-  const numY = -2.2 + (NUM_Y + 2.2) * rise;
-  const spin = (1 - rise) * -1.6;
+  const numY = -0.15 + (NUM_Y + 0.15) * rise;
+  const end = T.melt - T.promise;
+  const drift = Math.sin((f - end) * 0.045) * 0.22 * ease(f, RISE[0] + 40, RISE[0] + 70);
+  const spin = (1 - rise) * -1.6 + drift;
   const tilt = ease(f, RISE[0], T.melt - T.promise, 0, 0.16);
   return (
     <AbsoluteFill style={{background: '#000'}}>
@@ -127,7 +129,7 @@ export const PromiseScene: React.FC = () => {
           <group rotation={[tilt, 0, 0]}>
             <Bokeh frame={f + 60} opacity={0.22 * ease(f, FLY - 10, FLY + 20)} />
             {f >= RISE[0] - 2 ? (
-              <GoldNumber position={[0, numY, 0]} rotation={[0.08 * rise, spin, 0]} scale={NUM_SCALE * (0.8 + 0.2 * rise)} glow={0.12 * (1 - rise)} time={f / 30} />
+              <GoldNumber position={[0, numY, 0]} rotation={[0.08 * rise, spin, 0]} scale={NUM_SCALE * (0.35 + 0.65 * rise)} glow={0.12 * (1 - rise)} time={f / 30} />
             ) : null}
           </group>
           <Post bloom={0.95} />
