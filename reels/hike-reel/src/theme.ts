@@ -21,19 +21,23 @@ export const C = {
 };
 
 export const FPS = 30;
-// Scene starts (frames)
+import TL from './timeline.json';
+// Scene starts (frames) — derived from the real VO durations (audio/build_timeline.py)
+const sc = TL.scenes as Record<string, [number, number]>;
 export const T = {
-  hook: 0,
-  promise: 60,
-  melt: 240,
-  turn: 600,
-  move1: 750,
-  move2: 970,
-  move3: 1190,
-  payoff: 1410,
-  end: 1650,
-  total: 1740,
+  hook: sc.hook[0],
+  promise: sc.promise[0],
+  melt: sc.melt[0],
+  turn: sc.turn[0],
+  move1: sc.move1[0],
+  move2: sc.move2[0],
+  move3: sc.move3[0],
+  payoff: sc.payoff[0],
+  end: sc.end[0],
+  total: TL.total,
 };
+export const CUE = TL.cues as any;
+export const LINES = TL.lines as Record<string, [number, number]>;
 
 export const goldGradient =
   'linear-gradient(180deg, #FFF3C4 0%, #FFD36B 28%, #E9A52A 55%, #FFD978 72%, #9C6408 100%)';

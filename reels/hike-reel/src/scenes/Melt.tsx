@@ -5,17 +5,17 @@ import {ThreeCanvas} from '@remotion/three';
 import {Studio, Post, Bokeh} from '../three/Studio';
 import {GoldNumber, Hit} from '../three/GoldNumber';
 import {PriceTag, Sparks, Drips, Puddle, Floor} from '../three/MeltFX';
-import {anton, C, inter, mono} from '../theme';
+import {anton, C, inter, mono, CUE} from '../theme';
 import {ease, lin, shake, easeIn, backOut, clamp} from '../util';
 
 export const NUM_SCALE = 0.33;
 export const NUM_Y = 0.42;
 export const TAGS = ['RENT ↑', 'GROCERIES ↑', 'FUEL ↑', 'SCHOOL FEES ↑'];
-export const HIT_AT = [66, 92, 118, 144]; // local frames (synced to VO words later)
+export const HIT_AT = CUE.hits as number[]; // local frames, synced to VO words
 export const HIT_X = [-2.2, 2.25, -0.6, 1.0]; // object-space x of each bite
-export const SPLIT_AT = 196;
-export const DRAIN = [214, 290];
-export const STAMP_AT = 300;
+export const SPLIT_AT = CUE.split as number;
+export const DRAIN = CUE.drain as number[];
+export const STAMP_AT = CUE.stamp as number;
 
 export const meltState = (f: number) => {
   const hits: Hit[] = HIT_AT.map((h, i) => {

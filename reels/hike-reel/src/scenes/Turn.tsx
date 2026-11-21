@@ -5,14 +5,14 @@ import {Studio, Post, Bokeh} from '../three/Studio';
 import {GoldNumber} from '../three/GoldNumber';
 import {Drips, Puddle} from '../three/MeltFX';
 import {meltState, NUM_SCALE, NUM_Y, HIT_AT, HIT_X} from './Melt';
-import {C, inter, T} from '../theme';
+import {C, inter, T, LINES} from '../theme';
 import {ease, lin} from '../util';
 import words from '../captions.json';
 
 type W = {w: string; s: number; e: number};
 
 // Final melted state carried over from the Melt scene, frozen.
-const FROZEN = 352;
+const FROZEN = T.turn - T.melt - 1;
 
 export const KineticWords: React.FC<{f: number; from: number; to: number; offset: number; style: (w: string, i: number) => React.CSSProperties}> = ({
   f,
@@ -91,12 +91,12 @@ export const Turn: React.FC = () => {
       {/* type */}
       <div style={{position: 'absolute', left: 70, width: 800, top: 1130, textAlign: 'center', fontFamily: inter, fontWeight: 900, textTransform: 'uppercase'}}>
         <div style={{fontSize: 60, color: 'rgba(220,224,232,0.8)', letterSpacing: 0, lineHeight: 1.1}}>
-          <KineticWords f={f} from={T.turn} to={T.turn + 42} offset={T.turn} style={() => ({})} />
+          <KineticWords f={f} from={T.turn} to={LINES.t2[0] - 2} offset={T.turn} style={() => ({})} />
         </div>
         <div style={{fontSize: 74, color: C.white, lineHeight: 1.08, marginTop: 22, letterSpacing: -1}}>
           <KineticWords
             f={f}
-            from={T.turn + 42}
+            from={LINES.t2[0] - 2}
             to={T.move1}
             offset={T.turn}
             style={(w) =>
@@ -113,7 +113,7 @@ export const Turn: React.FC = () => {
           />
         </div>
       </div>
-      <AbsoluteFill style={{background: `rgba(0,0,0,${lin(f, 140, 150)})`}} />
+      <AbsoluteFill style={{background: `rgba(0,0,0,${lin(f, T.move1 - T.turn - 8, T.move1 - T.turn)})`}} />
     </AbsoluteFill>
   );
 };

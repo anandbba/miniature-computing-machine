@@ -3,12 +3,12 @@ import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {ThreeCanvas} from '@remotion/three';
 import {Studio, Post, Bokeh} from '../three/Studio';
 import {Confetti} from '../three/Confetti';
-import {anton, C, goldGradient, inter} from '../theme';
+import {anton, C, goldGradient, inter, CUE} from '../theme';
 import {ease, lin, shake, backOut} from '../util';
 
 export const BURST = 10;
 export const FREEZE_T = 13; // flakes freeze 13 frames after burst
-export const SLAM = 30;
+export const SLAM = CUE.slam;
 
 export const Notification: React.FC<{f: number; strike?: number; dim?: number}> = ({f, strike = 0, dim = 0}) => {
   const enter = ease(f, 1, 11, 0, 1, backOut);

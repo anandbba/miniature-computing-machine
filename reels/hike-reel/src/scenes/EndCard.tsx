@@ -70,7 +70,7 @@ export const EndCard: React.FC = () => {
   const logo = ease(f, 36, 50);
   const tag = ease(f, 46, 60, 0, 1, backOut);
   const follow = ease(f, 54, 68, 0, 1, backOut);
-  const out = lin(f, 78, 89); // fade to pure black = matches frame 0
+  const out = lin(f, 70, 83); // fade to pure black = matches frame 0
   const R = 250;
   return (
     <AbsoluteFill style={{background: '#000'}}>

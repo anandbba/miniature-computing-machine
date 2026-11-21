@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
-import {anton, C, goldGradient, inter, mono} from '../theme';
+import {anton, C, goldGradient, inter, mono, CUE, T} from '../theme';
 import {ease, lin, shake, rnd, easeIn, backOut, easeInOut} from '../util';
 
 // ---------- the metric for move 1 (MUST come from Anand's real career; placeholder until supplied) ----------
@@ -104,14 +104,14 @@ const whip = (f: number, len: number) => {
 // ============ MOVE 1: Bring a number, not effort ============
 export const Move1: React.FC = () => {
   const f = useCurrentFrame();
-  const crack = 70;
+  const crack = CUE.m1crack as number;
   const shards = 22;
   const shatter = ease(f, crack, crack + 22, 0, 1, Easing0);
   const reform = ease(f, crack + 30, crack + 58, 0, 1, easeInOut);
   const card = ease(f, crack + 52, crack + 70, 0, 1, backOut);
   const s = shake(f, crack, 16, 12);
   return (
-    <AbsoluteFill style={{background: '#000', ...whip(f, 220)}}>
+    <AbsoluteFill style={{background: '#000', ...whip(f, T.move2 - T.move1)}}>
       <MoveBg f={f} hue={C.blue} />
       <MoveHeader f={f} n={1} title={['Bring a', 'number,', 'not effort']} />
       {/* glass phrase, cut into shards */}
@@ -207,13 +207,13 @@ const GlassPhrase: React.FC<{f: number; crack: number}> = ({f, crack}) => {
 // ============ MOVE 2: Name who benefited ============
 export const Move2: React.FC = () => {
   const f = useCurrentFrame();
-  const beam = ease(f, 40, 110, 0, 1, easeInOut);
-  const hit = 110;
+  const hit = CUE.m2hit as number;
+  const beam = ease(f, hit - 56, hit, 0, 1, easeInOut);
   const lit = ease(f, hit, hit + 12);
   const pathD = 'M 230 1160 C 260 820, 700 1020, 720 720';
   const L = 820;
   return (
-    <AbsoluteFill style={{background: '#000', ...whip(f, 220)}}>
+    <AbsoluteFill style={{background: '#000', ...whip(f, T.move3 - T.move2)}}>
       <MoveBg f={f} hue={C.green} />
       <MoveHeader f={f} n={2} title={['Name who', 'benefited']} />
       <svg width="1080" height="1920" style={{position: 'absolute', inset: 0}}>
@@ -303,17 +303,17 @@ const DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI'];
 export const Move3: React.FC = () => {
   const f = useCurrentFrame();
   // page flips: accelerate then brake
-  const flipT = ease(f, 18, 92, 0, 1, easeInOut);
+  const flipT = ease(f, 12, (CUE.m3snap as number) - 12, 0, 1, easeInOut);
   const pages = 16;
   const flipPos = flipT * pages; // fractional page index
-  const snap = 108; // meeting block lands
-  const stampAt = 140;
+  const snap = CUE.m3snap as number; // meeting block lands on 'chat'
+  const stampAt = CUE.m3stamp as number; // stamp on 'lock'
   const blockIn = ease(f, snap - 14, snap, 0, 1, easeIn);
   const blockSettle = shake(f, snap, 8, 8);
   const st = ease(f, stampAt, stampAt + 5, 0, 1, easeIn);
   const stShake = shake(f, stampAt + 5, 26, 14);
   return (
-    <AbsoluteFill style={{background: '#000', ...whip(f, 220)}}>
+    <AbsoluteFill style={{background: '#000', ...whip(f, T.payoff - T.move3)}}>
       <MoveBg f={f} hue={C.cyan} />
       <AbsoluteFill style={{transform: `translate(${stShake.x}px,${stShake.y}px)`}}>
         <MoveHeader f={f} n={3} title={['Ask', 'early']} />
@@ -346,7 +346,7 @@ export const Move3: React.FC = () => {
           </div>
         </div>
         {/* week strip */}
-        <div style={{position: 'absolute', left: 70, top: 1000, width: 800, height: 230, display: 'flex', gap: 12, opacity: ease(f, 60, 80)}}>
+        <div style={{position: 'absolute', left: 70, top: 1000, width: 800, height: 230, display: 'flex', gap: 12, opacity: ease(f, snap - 40, snap - 22)}}>
           {DAYS.map((d, i) => (
             <div key={d} style={{flex: 1, borderRadius: 18, background: 'rgba(255,255,255,0.06)', border: '1.5px solid rgba(255,255,255,0.14)', padding: '14px 0', textAlign: 'center', position: 'relative'}}>
               <div style={{fontFamily: inter, fontWeight: 800, fontSize: 26, letterSpacing: 3, color: 'rgba(245,247,251,0.6)'}}>{d}</div>
