@@ -273,8 +273,8 @@ add(sfx, shimmer(2.5, 1500), TU + 16, 0.9)
 # moves
 for st in [M1, M2, M3, PY]:
     add(sfx, whoosh(0.45, 300, 7000), st - 7, 0.8)
-add(sfx, glass_shatter(), M1 + CUE['m1crack'], 1.0)
-add(sfx, pop(), M1 + CUE['m1crack'] + 54, 1.0)
+add(sfx, glass_shatter(), M1 + CUE['m1crack'] - 30, 1.0)
+add(sfx, pop(), M1 + CUE['m1crack'] - 30 + 40, 1.0)
 hit2 = CUE['m2hit']
 add(sfx, riser(1.8, 300, 1400) * 0.8, M2 + hit2 - 56, 0.9)
 add(sfx, chime(), M2 + hit2, 0.8)

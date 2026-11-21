@@ -3,12 +3,7 @@ import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {anton, C, goldGradient, inter, mono, CUE, T} from '../theme';
 import {ease, lin, shake, rnd, easeIn, backOut, easeInOut} from '../util';
 
-// ---------- the metric for move 1 (MUST come from Anand's real career; placeholder until supplied) ----------
-export const METRIC = {
-  label: '[YOUR METRIC]',
-  before: '[BEFORE]',
-  after: '[AFTER]',
-};
+// Move 1 deliberately shows an empty before -> after template (no invented metric).
 
 const MoveBg: React.FC<{f: number; hue: string}> = ({f, hue}) => (
   <AbsoluteFill style={{background: `radial-gradient(120% 70% at 50% 35%, #0c1730 0%, #060a14 55%, #020306 100%)`}}>
@@ -104,11 +99,11 @@ const whip = (f: number, len: number) => {
 // ============ MOVE 1: Bring a number, not effort ============
 export const Move1: React.FC = () => {
   const f = useCurrentFrame();
-  const crack = CUE.m1crack as number;
+  const crack = (CUE.m1crack as number) - 30;
   const shards = 22;
   const shatter = ease(f, crack, crack + 22, 0, 1, Easing0);
-  const reform = ease(f, crack + 30, crack + 58, 0, 1, easeInOut);
-  const card = ease(f, crack + 52, crack + 70, 0, 1, backOut);
+  const reform = ease(f, crack + 22, crack + 44, 0, 1, easeInOut);
+  const card = ease(f, crack + 38, crack + 54, 0, 1, backOut);
   const s = shake(f, crack, 16, 12);
   return (
     <AbsoluteFill style={{background: '#000', ...whip(f, T.move2 - T.move1)}}>
@@ -160,23 +155,31 @@ export const Move1: React.FC = () => {
           fontFamily: inter,
         }}
       >
-        <div style={{fontWeight: 800, fontSize: 30, letterSpacing: 4, color: 'rgba(245,247,251,0.6)'}}>{METRIC.label}</div>
-        <div style={{display: 'flex', alignItems: 'center', gap: 24, marginTop: 18}}>
-          <div style={{flex: 1}}>
-            <div style={{fontWeight: 700, fontSize: 26, color: 'rgba(245,247,251,0.55)', letterSpacing: 3}}>BEFORE</div>
-            <div style={{fontFamily: mono, fontWeight: 800, fontSize: 70, color: 'rgba(245,247,251,0.75)'}}>{METRIC.before}</div>
-          </div>
-          <div style={{fontSize: 70, color: C.gold, transform: `translateX(${Math.sin(f * 0.2) * 6}px)`}}>→</div>
-          <div style={{flex: 1}}>
-            <div style={{fontWeight: 700, fontSize: 26, color: C.lime, letterSpacing: 3}}>AFTER</div>
-            <div style={{fontFamily: mono, fontWeight: 800, fontSize: 70, color: C.lime, textShadow: `0 0 30px rgba(126,217,87,0.5)`}}>{METRIC.after}</div>
-          </div>
+        <div style={{fontWeight: 800, fontSize: 30, letterSpacing: 4, color: 'rgba(245,247,251,0.6)'}}>YOUR IMPACT, IN NUMBERS</div>
+        <div style={{display: 'flex', alignItems: 'flex-end', gap: 24, marginTop: 22}}>
+          <Slot f={f} label="BEFORE" color="rgba(245,247,251,0.75)" at={0} />
+          <div style={{fontSize: 70, color: C.gold, paddingBottom: 18, transform: `translateX(${Math.sin(f * 0.2) * 6}px)`}}>→</div>
+          <Slot f={f} label="AFTER" color={C.lime} at={6} />
+        </div>
+        <div style={{marginTop: 26, fontWeight: 700, fontSize: 30, color: 'rgba(245,247,251,0.55)', letterSpacing: 1}}>
+          time · cost · revenue · errors · customers
         </div>
       </div>
     </AbsoluteFill>
   );
 };
 const Easing0 = (t: number) => 1 - Math.pow(1 - t, 3);
+
+// empty fill-in slot with a blinking cursor: the viewer brings their own number
+const Slot: React.FC<{f: number; label: string; color: string; at: number}> = ({f, label, color, at}) => (
+  <div style={{flex: 1}}>
+    <div style={{fontWeight: 800, fontSize: 28, color, letterSpacing: 4}}>{label}</div>
+    <div style={{position: 'relative', height: 96, marginTop: 8, borderRadius: 16, background: 'rgba(0,0,0,0.35)', border: `2px dashed ${color}`}}>
+      <div style={{position: 'absolute', left: 24, top: 18, width: 6, height: 60, background: color, opacity: Math.floor((f + at) / 9) % 2 ? 1 : 0.15, boxShadow: `0 0 16px ${color}`}} />
+      <div style={{position: 'absolute', right: 20, top: 14, fontFamily: mono, fontWeight: 800, fontSize: 60, color, opacity: 0.35}}>#</div>
+    </div>
+  </div>
+);
 
 const GlassPhrase: React.FC<{f: number; crack: number}> = ({f, crack}) => {
   const strike = ease(f, crack - 20, crack - 4);
