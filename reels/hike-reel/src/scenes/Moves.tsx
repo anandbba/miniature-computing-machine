@@ -93,7 +93,7 @@ const MoveHeader: React.FC<{f: number; n: number; title: string[]}> = ({f, n, ti
 const whip = (f: number, len: number) => {
   const o = ease(f, len - 8, len, 0, 1, easeIn);
   const i = 1 - ease(f, 0, 8);
-  return {transform: `translateX(${(o * -1080 + i * 1080) * 0.6}px)`, filter: `blur(${(o + i) * 26}px)`};
+  return {transform: `translateX(${(o * -1080 + i * 1080) * 0.6}px) scale(${1 + f * 0.00035})`, filter: `blur(${(o + i) * 26}px)`};
 };
 
 // ============ MOVE 1: Bring a number, not effort ============
@@ -213,7 +213,7 @@ export const Move2: React.FC = () => {
   const hit = CUE.m2hit as number;
   const beam = ease(f, hit - 56, hit, 0, 1, easeInOut);
   const lit = ease(f, hit, hit + 12);
-  const pathD = 'M 230 1160 C 260 820, 700 1020, 720 720';
+  const pathD = 'M 230 1040 C 260 760, 700 940, 720 720';
   const L = 820;
   return (
     <AbsoluteFill style={{background: '#000', ...whip(f, T.move3 - T.move2)}}>
@@ -245,7 +245,7 @@ export const Move2: React.FC = () => {
         })}
       </svg>
       {/* your work node */}
-      <Node x={230} y={1160} label="YOUR WORK" glow={C.cyan} on={1} icon="chart" f={f} />
+      <Node x={230} y={1040} label="YOUR WORK" glow={C.cyan} on={1} icon="chart" f={f} />
       {/* stakeholder */}
       <Node x={720} y={640} label="WHO BENEFITED" sub="team · client · leader" glow={C.lime} on={lit} icon="person" f={f} big />
     </AbsoluteFill>
