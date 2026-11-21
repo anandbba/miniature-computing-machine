@@ -1,0 +1,11 @@
+[
+ {"id":"hook","start":4,"end":52,"text":"Your nine percent hike? It's really five."},
+ {"id":"promise","start":66,"end":232,"text":"Say you earn ten lakh. A nine point one percent hike? That's ninety-one thousand rupees. On paper."},
+ {"id":"melt","start":246,"end":592,"text":"Then inflation shows up. Rent. Groceries. Fuel. School fees. Each one takes a bite. That ninety-one thousand? In real buying power, about fifty-one thousand. Real wage growth: five point one percent."},
+ {"id":"turn","start":606,"end":742,"text":"You can't stop inflation. But you CAN control what you carry into your appraisal."},
+ {"id":"move1","start":756,"end":960,"text":"One. Bring a number, not effort. \"I worked really hard\" isn't a KPI. [YOUR METRIC] is."},
+ {"id":"move2","start":976,"end":1180,"text":"Two. Name who benefited. Which team, which client, which leader got the win? Say it."},
+ {"id":"move3","start":1196,"end":1400,"text":"Three. Ask early. Get the conversation on the calendar before ratings lock. Not after."},
+ {"id":"payoff","start":1418,"end":1640,"text":"Inflation takes its cut. Your proof decides the rest. Comment your hike percent. I'll reply with your real number."},
+ {"id":"end","start":1656,"end":1700,"text":"Follow for more."}
+]
